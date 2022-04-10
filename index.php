@@ -1,5 +1,5 @@
 <?php
-class Animal
+abstract class Animal
 {
     protected $type;
     protected $move;
@@ -14,6 +14,7 @@ class Animal
     {
         echo $this->type .' is '. $this->move;
     }
+    abstract function Color();
 }
 
 class Rabbit extends Animal
@@ -30,8 +31,12 @@ class Rabbit extends Animal
         parent::Show();
         echo ' his name is ' .$this->name .PHP_EOL;
     }
-
+    function Color()
+    {
+        echo 'his color is white' .PHP_EOL;
+    }
 }
 
 $r=new Rabbit('rabbit','jump','Robby');
 $r->Show();
+$r->Color();
