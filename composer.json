@@ -1,0 +1,5 @@
+{
+    "require": {
+        "ktamas77/phptimer": "^2.0"
+    }
+}

@@ -1,42 +1,23 @@
 <?php
-abstract class Animal
-{
-    protected $type;
-    protected $move;
 
-    function __construct($t,$m)
-    {
-        $this->type=$t;
-        $this->move=$m;
-    }
+require 'vendor/autoload.php';
 
-    function Show()
-    {
-        echo $this->type .' is '. $this->move;
-    }
-    abstract function Color();
+use ktamas77\phptimer\Timer;
+
+$timer = new Timer();
+$a=1;
+$timer->start('cycle');
+    for ($i = 0; $i < 100000; $i++) {
+    $a *= $i;
 }
+$timer->stop('cycle');
 
-class Rabbit extends Animal
-{
-    protected $name;
+for ($i = 0; $i < 10; $i++) {
+    $timer->start("subloop");
+    for ($j = 0; $j < 1000000; $j++) {
+        $a = $i * $j;
+    }
+    $timer->stop("subloop");
+}  
 
-    function __construct($t, $m, $n)
-    {
-        parent::__construct($t, $m);
-        $this->name=$n;
-    }
-    function Show()
-    {
-        parent::Show();
-        echo ' his name is ' .$this->name .PHP_EOL;
-    }
-    function Color()
-    {
-        echo 'his color is white' .PHP_EOL;
-    }
-}
-
-$r=new Rabbit('rabbit','jump','Robby');
-$r->Show();
-$r->Color();
+var_dump($timer->getAll());
