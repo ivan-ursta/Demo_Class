@@ -1,39 +1,60 @@
 <?php
+
+//The Creator declares a factory method
 abstract class Animal
 {
-    protected $type;
-    protected $move;
+    //Factory method
+    abstract public function getAnimal(): AnimalConnector;
 
-    function __construct($t,$m)
+    public function Show($animal):void
     {
-        $this->type=$t;
-        $this->move=$m;
+        //Call the factory method to create a Product object...
+        $animal = $this->getAnimal();
+        $animal->showAnimal();
     }
-
-    function Show()
-    {
-        echo $this->type .' is '. $this->move;
-    }
-    abstract function Color();
 }
-
-class Rabbit extends Animal
+//Concrete Creator
+class Terrestrial extends Animal
 {
-    protected $name;
+    private $name;
 
-    function __construct($t, $m, $n)
+    public function __construct($n)
     {
-        parent::__construct($t, $m);
         $this->name=$n;
     }
-    function Show()
+    public function getAnimal(): AnimalConnector
     {
-        parent::Show();
-        echo ' his name is ' .$this->name .PHP_EOL;
+        return new TerrestrialConnector($this->name);
     }
-    function Color()
+}
+
+//Concrete Creator
+class Aquatic
+{
+    private $name;
+
+    public function __construct($n)
     {
-        echo 'his color is white' .PHP_EOL;
+        $this->name=$n;
+    }
+    public function getAnimal(): AnimalConnector
+    {
+        return new AquaticConnector($this->name);
+    }
+}
+
+//Concrete Creator
+class Birds
+{
+    private $name;
+
+    public function __construct($n)
+    {
+        $this->name=$n;
+    }
+    public function getAnimal(): AnimalConnector
+    {
+        return new BirdsConnector($this->name);
     }
 }
 
