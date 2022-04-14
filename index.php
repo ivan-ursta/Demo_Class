@@ -6,7 +6,7 @@ abstract class Animal
     //Factory method
     abstract public function getAnimal(): AnimalConnector;
 
-    public function Show($animal):void
+    public function showAnimal($animal):void
     {
         //Call the factory method to create a Product object...
         $animal = $this->getAnimal();
@@ -73,6 +73,7 @@ class TerrestrialConnector implements AnimalConnector
     public function createAnimal($animal): void
     {
         echo "Send request to create Terrestrial animal.\n";
+        echo "Hello, my name is " . $this->name;
     }
 }
 //Concrete Product
@@ -86,6 +87,7 @@ class AquaticConnector implements AnimalConnector
     public function createAnimal($animal): void
     {
         echo "Send request to create Aquatic animal.\n";
+        echo "Hello, my name is " . $this->name;
     }
 }
 
@@ -99,10 +101,23 @@ class BirdsConnector implements AnimalConnector
     public function createAnimal($animal): void
     {
         echo "Send request to create Birds animal.\n";
+        echo "Hello, my name is " . $this->name;
     }
 }
 
+function clientCode(Animal $creator)
+{
+    $creator->showAnimal("Hello world!");
+}
 
-$r=new Rabbit('rabbit','jump','Robby');
-$r->Show();
-$r->Color();
+echo "Testing ConcreteCreator1:\n";
+clientCode(new Terrestrial("Bear"));
+echo "\n\n";
+
+echo "Testing ConcreteCreator2:\n";
+clientCode(new Aquatic("Dolphin"));
+echo "\n\n";
+
+echo "Testing ConcreteCreator3:\n";
+clientCode(new Birds("Eagle"));
+echo "\n\n";
