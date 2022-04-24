@@ -1,109 +1,13 @@
 <?php
 
-//The Creator declares a factory method
-abstract class Animal
-{
-    //Factory method
-    abstract public function getAnimal(): AnimalConnector;
 
-    public function showAnimal($animal):void
-    {
-        //Call the factory method to create a Product object...
-        $animal = $this->getAnimal();
-        $animal->createAnimal($animal);
-    }
-}
-//Concrete Creator
-class Terrestrial extends Animal
-{
-    private $name;
+use App\Animal\Animal;
+use App\Terrestrial\Terrestrial;
+use App\Aquatic\Aquatic;
+use App\Birds\Birds;
 
-    public function __construct($n)
-    {
-        $this->name=$n;
-    }
-    public function getAnimal(): AnimalConnector
-    {
-        return new TerrestrialConnector($this->name);
-    }
-}
 
-//Concrete Creator
-class Aquatic extends Animal
-{
-    private $name;
-
-    public function __construct($n)
-    {
-        $this->name=$n;
-    }
-    public function getAnimal(): AnimalConnector
-    {
-        return new AquaticConnector($this->name);
-    }
-}
-
-//Concrete Creator
-class Birds extends Animal
-{
-    private $name;
-
-    public function __construct($n)
-    {
-        $this->name=$n;
-    }
-    public function getAnimal(): AnimalConnector
-    {
-        return new BirdsConnector($this->name);
-    }
-}
-//Product interface
-interface AnimalConnector
-{
-    public function createAnimal($animal): void;
-}
-//Concrete Product
-class TerrestrialConnector implements AnimalConnector
-{
-    private $name;
-    public function __construct(string $n)
-    {
-        $this->name = $n;
-    }
-    public function createAnimal($animal): void
-    {
-        echo "Send request to create Terrestrial animal.\n";
-        echo "Hello, my name is " . $this->name;
-    }
-}
-//Concrete Product
-class AquaticConnector implements AnimalConnector
-{
-    private $name;
-    public function __construct(string $n)
-    {
-        $this->name = $n;
-    }
-    public function createAnimal($animal): void
-    {
-        echo "Send request to create Aquatic animal.\n";
-        echo "Hello, my name is " . $this->name;
-    }
-}
-
-class BirdsConnector implements AnimalConnector
-{
-    private $name;
-    public function __construct(string $n)
-    {
-        $this->name = $n;
-    }
-    public function createAnimal($animal): void
-    {
-        echo "Send request to create Birds animal.\n";
-        echo "Hello, my name is " . $this->name;
-    }
-}
+require_once __DIR__ . '/vendor/autoload.php';
 
 function clientCode(Animal $creator)
 {
